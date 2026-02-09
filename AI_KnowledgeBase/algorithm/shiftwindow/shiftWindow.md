@@ -56,3 +56,20 @@
 
             ans = max(ans, right - left + 1)
         return ans
+
+### 乘积小于 K 的子数组 leetcode713
+
+    class Solution:
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        if k <= 1:
+            return 0
+        product = 1
+        left = 0
+        ans = 0
+        for right, n in enumerate(nums):# 枚举右
+            product *= n
+            while product >= k:
+                product /= nums[left]
+                left += 1 # 维护左
+            ans += right - left + 1
+        return ans
